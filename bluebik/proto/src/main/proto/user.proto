@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package com.bluebik;
+
+message User {
+  int32 user_id = 1;
+  string account = 2;
+  string name = 3;
+  int32 age = 4;
+}
+
+message UserId {
+  int32 user_id = 1;
+}
+
+message UserAddRequest {
+  string account = 1;
+  string name = 2;
+  int32 age = 3;
+}
+
+message ResponseMessage {
+  int32 code = 1;
+  string message = 2;
+}
+
+message Username {
+  string name = 1;
+}
+
+service UserService {
+  rpc getUser(UserId) returns(User){}
+
+  rpc createUser(UserAddRequest) returns(ResponseMessage){}
+
+  rpc updateUser(User) returns(User){}
+
+  rpc deleteUser(UserId) returns(ResponseMessage){}
+
+  rpc createMultipleUser(stream UserAddRequest) returns(stream ResponseMessage){}
+
+  rpc searchUserByUsername(Username) returns(stream User){}
+
+  rpc updateMultipleUser(stream User) returns(stream User){}
+
+  rpc deleteMultipleUser(stream UserId) returns(ResponseMessage){}
+}
